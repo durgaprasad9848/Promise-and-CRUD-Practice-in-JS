@@ -1,68 +1,23 @@
  
-//2
-
+//Task 4
 window.onload = function(){
 
 
 
-  var header= document.getElementById("header-title");
+  var items= document.getElementsByClassName("list-group-item");
 
   
+   items[2].style.backgroundColor = 'green';
 
-  header.textContent="Registration page";
 
-  console.log(header);
+   for(let i=0;i<items.length;i++)
+   {
+    items[i].style.fontWeight='bold';
+   }
 
  
 
 }
 
 
-
-
-
-//3.
-
-
-
-//I)
-
-Innertext => Displays only inner text content of a tag.
-
-Textcontet => display whole the text inside the tag
-
  
-
-//II)
-
-
-
-var header= document.getElementById("header-title");
-
-header.style.border='2px solid black';
-
-
-
-
-
-//III)
-
-window.onload = function(){
-
-
-
-   const x = document.getElementById("items");
-
-   x.style.fontWeight="bold";
-
-   x.style.color="green";
-
-
-
-
-
-   console.log(x);
-
-    
-
-}
