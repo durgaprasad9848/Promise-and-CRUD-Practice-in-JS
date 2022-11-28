@@ -4,17 +4,17 @@ window.onload = function(){
 
 
 
-  var items= document.getElementsByClassName("list-group-item");
+  var classname= document.getElementsByClassName('practice');
+  
+  classname[0].style.color="red";
+
 
   
-   items[2].style.backgroundColor = 'green';
+  var tagname1= document.getElementsByTagName('li');
+  
+  tagname1[4].style.backgroundColor="green";
 
-
-   for(let i=0;i<items.length;i++)
-   {
-    items[i].style.fontWeight='bold';
-   }
-
+   
  
 
 }
