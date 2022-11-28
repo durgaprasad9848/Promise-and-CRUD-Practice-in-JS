@@ -1,34 +1,86 @@
  
 //Task 6
 window.onload = function(){
-
-//Query selector
-var querypract = document.querySelector('.list-group-item:nth-child(2)');
-
-querypract.style.backgroundColor="red";
-
-
-//console.log(querypract);
-
-
-//Query selector all 
-//1.
-
-var queryall = document.querySelectorAll('.list-group-item');
-
-queryall[1].style.color="green";
-
-
-//2.
-for(let i=0;i,queryall.length;i++)
-{
-  if(i%2==0)
-  queryall[i].style.backgroundColor="green";
-}
+//1
+  var itemlist = document.querySelector('#items');
  
+  console.log(itemlist.parentElement);
+
+  itemlist.parentElement.style.color = "blue";
+
+//2
+
+ var itemlist2 = document.querySelector('#items');
+
+ itemlist2.lastElementChild.style.color="yellow";
 //3
-// Query selector : Selectos only single class,tag or id at a time. nth item will be accesed by nth-child() method.
-// Query selector all : selects all the classes,tags and id at a time and accessed by its index value
+ console.log(itemlist2.lastChild);
+
+//4 create child
+
+//5
+console.log(itemlist2.firstElementChild);
+
+//6
+console.log(itemlist2.firstChild);
+
+//7
+console.log(itemlist2.nextSibling);
+ 
+//8
+
+console.log(itemlist2.nextElementSibling);
+
+//9
+console.log(itemlist2.nextElementSibling);
+
+//10
+
+console.log(itemlist2.previousSibling);
+
+
+//11.
+
+var newpara = document.createElement('p');
+
+newpara.className='paragraph';
+
+newpara.id='para1';
+//12
+
+newpara.setAttribute('title','Hi prasad');
+
+
+console.log(newpara);
+
+//13
+var newparatext = document.createTextNode('Inside the paragraph');
+
+
+//14
+newpara.appendChild(newparatext);
+
+console.log(newpara);
+
+
+/////
+//1
+var container = document.querySelector('header .container');
+
+var h1= document.querySelector('header h1');
+
+console.log(h1);
+
+container.insertBefore(newpara,h1);
+//2
+
+var container2=document.querySelectorAll('h2');
+
+var listgroup = document.querySelector('list-group');
+
+container2[1].insertBefore(newpara,listgroup);
+
+
 
 }
 
