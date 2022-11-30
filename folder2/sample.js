@@ -1,88 +1,67 @@
  
-//Task 6
-window.onload = function(){
-//1
-  var itemlist = document.querySelector('#items');
- 
-  console.log(itemlist.parentElement);
+var from = document.getElementById('addForm');
+var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 
-  itemlist.parentElement.style.color = "blue";
-
-//2
-
- var itemlist2 = document.querySelector('#items');
-
- itemlist2.lastElementChild.style.color="yellow";
-//3
- console.log(itemlist2.lastChild);
-
-//4 create child
-
-//5
-console.log(itemlist2.firstElementChild);
-
-//6
-console.log(itemlist2.firstChild);
-
-//7
-console.log(itemlist2.nextSibling);
- 
-//8
-
-console.log(itemlist2.nextElementSibling);
-
-//9
-console.log(itemlist2.nextElementSibling);
-
-//10
-
-console.log(itemlist2.previousSibling);
+from.addEventListener('submit',additem);
 
 
-//11.
+function additem(e)
+{
+  e.preventDefault();
 
-var newpara = document.createElement('p');
+  var newItem = document.getElementById('item').value;
 
-newpara.className='paragraph';
+  var li = document.createAttribute('li');
+  li.className='list-group-item';
+  li.appendChild(document.createTextNode(newItem));
 
-newpara.id='para1';
-//12
+  var deleteBtn = document.createElement('button');
+   
+  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
-newpara.setAttribute('title','Hi prasad');
+  deleteBtn.appendChild(document.createTextNode('X'));
 
+  li.appendChild(deleteBtn);
+  itemList.appendChild(li);
 
-console.log(newpara);
+  //edit button
 
-//13
-var newparatext = document.createTextNode('Inside the paragraph');
+  var editBtn = document.createElement('button');
 
-
-//14
-newpara.appendChild(newparatext);
-
-console.log(newpara);
-
-
-/////
-//1
-var container = document.querySelector('header .container');
-
-var h1= document.querySelector('header h1');
-
-console.log(h1);
-
-container.insertBefore(newpara,h1);
-//2
-
-var container2=document.querySelectorAll('h2');
-
-var listgroup = document.querySelector('list-group');
-
-container2[1].insertBefore(newpara,listgroup);
+  editBtn.className = 'edit buttion';
+  editBtn.appendChild(document.createTextNode('EDIT'));
+  li.appendChild(editBtn);
 
 
 
 }
 
 
+// Remove item
+function removeItem(e){
+  if(e.target.classList.contains('delete')){
+    if(confirm('Are You Sure?')){
+      var li = e.target.parentElement;
+      itemList.removeChild(li);
+    }
+  }
+}
+
+// Filter Items
+function filterItems(e){
+  // convert text to lowercase
+  var text = e.target.value.toLowerCase();
+  // Get lis
+  var items = itemList.getElementsByTagName('li');
+  // Convert to an array
+  Array.from(items).forEach(function(item){
+    var itemName = item.firstChild.textContent;
+    if(itemName.toLowerCase().indexOf(text) != -1){
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
+}
  
