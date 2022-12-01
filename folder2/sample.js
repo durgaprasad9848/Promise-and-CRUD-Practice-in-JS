@@ -1,42 +1,48 @@
- 
-var from = document.getElementById('addForm');
+var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
 var filter = document.getElementById('filter');
 
-from.addEventListener('submit',additem);
+// Form submit event
+form.addEventListener('submit', addItem);
+// Delete event
+itemList.addEventListener('click', removeItem);
+// Filter event
+filter.addEventListener('keyup', filterItems);
 
-
-function additem(e)
-{
+// Add item
+function addItem(e){
   e.preventDefault();
 
+  // Get input value
   var newItem = document.getElementById('item').value;
+                                    //input 2
+  var newItem2 = document.getElementById('item2').value;
 
-  var li = document.createAttribute('li');
-  li.className='list-group-item';
-  li.appendChild(document.createTextNode(newItem));
+                                    //         var result = newItem.concat(" ",newItem2);
 
+  // Create new li element
+  var li = document.createElement('li');
+  // Add class
+  li.className = 'list-group-item';
+                                                        // Add text node with input value
+ li.appendChild(document.createTextNode(newItem));
+ li.appendChild(document.createTextNode(` ${newItem2}`));
+
+  // Create del button element
   var deleteBtn = document.createElement('button');
-   
+
+  // Add classes to del button
   deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
 
+  // Append text node
   deleteBtn.appendChild(document.createTextNode('X'));
 
+  // Append button to li
   li.appendChild(deleteBtn);
+
+  // Append li to list
   itemList.appendChild(li);
-
-  //edit button
-
-  var editBtn = document.createElement('button');
-
-  editBtn.className = 'edit buttion';
-  editBtn.appendChild(document.createTextNode('EDIT'));
-  li.appendChild(editBtn);
-
-
-
 }
-
 
 // Remove item
 function removeItem(e){
@@ -57,11 +63,19 @@ function filterItems(e){
   // Convert to an array
   Array.from(items).forEach(function(item){
     var itemName = item.firstChild.textContent;
-    if(itemName.toLowerCase().indexOf(text) != -1){
+  //description 
+    var itemName2 = item.childNodes[1].textContent;
+     
+    console.log(itemName2.textContent);
+    if(itemName.toLowerCase().indexOf(text) != -1 || itemName2.toLowerCase().indexOf(text)!= -1){
       item.style.display = 'block';
     } else {
       item.style.display = 'none';
     }
+
+    
   });
+
+
+
 }
- 
