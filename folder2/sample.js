@@ -1,62 +1,55 @@
+const submitButton = document.getElementById("submit");
  
 
+if (document.readyState !== "loading") {
  
+  var keys = Object.keys(localStorage), //taking out all the keys that are there in the local storage
+    i = keys.length; //6
+  //console.log("keys", keys);
+  let stringifiedDetailsOfPeople, detailsOfPeople;
 
-// USER FORM SCRIPT
+  // 6 to 0
+  Object.keys(localStorage).forEach((key) => {
+    //i==2
+    if (key.match(/userDetails/g)) {
+      //we only care about keys that start with userDetails
+      //this is called regex matching
+      stringifiedDetailsOfPeople = localStorage.getItem(key);
+      //console.log("stringifiedDetailsOfPeople", stringifiedDetailsOfPeople);
+      detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
+     // console.log("details", detailsOfPeople);
 
-// Put DOM elements into variables
-const myForm = document.querySelector('#my-form');
-const nameInput = document.querySelector('#name');
-const emailInput = document.querySelector('#email');
-const msg = document.querySelector('.msg');
-const userList = document.querySelector('#users');
-
-// Listen for form submit
-myForm.addEventListener('submit', onSubmit);
-
-function onSubmit(e) {
+      addNewLineElement(detailsOfPeople);
+    }
+  });
+}
+// const listOfPeople = []
+submitButton.addEventListener("click", (e) => {
   e.preventDefault();
-  
-  if(nameInput.value === '' || emailInput.value === '') {
-    // alert('Please enter all fields');
-    msg.classList.add('error');
-    msg.innerHTML = 'Please enter all fields';
-
-    // Remove error after 3 seconds
-    setTimeout(() => msg.remove(), 3000);
-  } else {
-    // Create new list item with user
-    const li = document.createElement('li');
-
-    // Add text node with input values
-    li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
-
-    // Add HTML
-    // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
-
-    // Append to ul
-    userList.appendChild(li);
-
-////////Local storage method
-  //  localStorage.setItem(nameInput.value,emailInput.value);
-
-
-
-    ///object
-
-    let myobj  ={
-      name: nameInput.value,
-      email: emailInput.value,
+  const emailId = document.getElementById("email").value;
+  const name = document.getElementById("name").value;
+  if (emailId.length > 0 && name.length > 0) {
+    const object = {
+      name: name,
+      emailId: emailId //unique
     };
-
-    let myObj_serialized = JSON.stringify(myobj);
-
-    localStorage.setItem("myObj",myObj_serialized);
-    
-   // let myObj_serialized = JSON.parse(localStorage.getItem("myobj"));
-
-    // Clear fields
-    nameInput.value = '';
-    emailInput.value = '';
+    localStorage.setItem("userDetails" + emailId, JSON.stringify(object));
+    // localStorage.setItem("userDetailEmail" + emailId, emailId);
+    // listOfPeople.push(object)
+    addNewLineElement(object);
   }
+});
+
+function addNewLineElement(object) {
+  const ul = document.getElementById("listOfPeople");
+  const li = document.createElement("li");
+  li.appendChild(
+    document.createTextNode(object.name + " " + object.emailId + " ")
+  );
+  // li.appendChild()
+  
+
+   
+
+  ul.appendChild(li);
 }
