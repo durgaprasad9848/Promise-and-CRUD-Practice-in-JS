@@ -1,81 +1,47 @@
-var form = document.getElementById('addForm');
-var itemList = document.getElementById('items');
-var filter = document.getElementById('filter');
+ 
 
-// Form submit event
-form.addEventListener('submit', addItem);
-// Delete event
-itemList.addEventListener('click', removeItem);
-// Filter event
-filter.addEventListener('keyup', filterItems);
+ 
 
-// Add item
-function addItem(e){
+// USER FORM SCRIPT
+
+// Put DOM elements into variables
+const myForm = document.querySelector('#my-form');
+const nameInput = document.querySelector('#name');
+const emailInput = document.querySelector('#email');
+const msg = document.querySelector('.msg');
+const userList = document.querySelector('#users');
+
+// Listen for form submit
+myForm.addEventListener('submit', onSubmit);
+
+function onSubmit(e) {
   e.preventDefault();
+  
+  if(nameInput.value === '' || emailInput.value === '') {
+    // alert('Please enter all fields');
+    msg.classList.add('error');
+    msg.innerHTML = 'Please enter all fields';
 
-  // Get input value
-  var newItem = document.getElementById('item').value;
-                                    //input 2
-  var newItem2 = document.getElementById('item2').value;
+    // Remove error after 3 seconds
+    setTimeout(() => msg.remove(), 3000);
+  } else {
+    // Create new list item with user
+    const li = document.createElement('li');
 
-                                    //         var result = newItem.concat(" ",newItem2);
+    // Add text node with input values
+    li.appendChild(document.createTextNode(`${nameInput.value}: ${emailInput.value}`));
 
-  // Create new li element
-  var li = document.createElement('li');
-  // Add class
-  li.className = 'list-group-item';
-                                                        // Add text node with input value
- li.appendChild(document.createTextNode(newItem));
- li.appendChild(document.createTextNode(` ${newItem2}`));
+    // Add HTML
+    // li.innerHTML = `<strong>${nameInput.value}</strong>e: ${emailInput.value}`;
 
-  // Create del button element
-  var deleteBtn = document.createElement('button');
+    // Append to ul
+    userList.appendChild(li);
 
-  // Add classes to del button
-  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+////////Local storage method
+    localStorage.setItem(nameInput.value,emailInput.value);
 
-  // Append text node
-  deleteBtn.appendChild(document.createTextNode('X'));
-
-  // Append button to li
-  li.appendChild(deleteBtn);
-
-  // Append li to list
-  itemList.appendChild(li);
-}
-
-// Remove item
-function removeItem(e){
-  if(e.target.classList.contains('delete')){
-    if(confirm('Are You Sure?')){
-      var li = e.target.parentElement;
-      itemList.removeChild(li);
-    }
+    // Clear fields
+    nameInput.value = '';
+    emailInput.value = '';
   }
-}
-
-// Filter Items
-function filterItems(e){
-  // convert text to lowercase
-  var text = e.target.value.toLowerCase();
-  // Get lis
-  var items = itemList.getElementsByTagName('li');
-  // Convert to an array
-  Array.from(items).forEach(function(item){
-    var itemName = item.firstChild.textContent;
-  //description 
-    var itemName2 = item.childNodes[1].textContent;
-     
-    console.log(itemName2.textContent);
-    if(itemName.toLowerCase().indexOf(text) != -1 || itemName2.toLowerCase().indexOf(text)!= -1){
-      item.style.display = 'block';
-    } else {
-      item.style.display = 'none';
-    }
-
-    
-  });
-
-
-
 }
