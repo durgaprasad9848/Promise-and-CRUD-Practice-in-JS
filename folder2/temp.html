@@ -1,0 +1,98 @@
+<html>
+    <body>
+        <script>
+//call
+const person = {
+  fullName: function(city, country) {
+    return this.firstName + " " + this.lastName + "," + city + "," + country;
+  }
+}
+
+const person1 = {
+  firstName:"John",
+  lastName: "Doe"
+}
+
+console.log(person.fullName.call(person1, "Oslo", "Norway"));
+// ouptut John Doe,Oslo,Norway
+
+
+//apply
+const student = {
+  fullName: function(city, country) {
+    return this.firstName + " " + this.lastName + "," + city + "," + country;
+  }
+}
+
+const student1 = {
+  firstName:"John",
+  lastName: "Doe"
+}
+let arr = ["Oslo","Norway"];
+console.log(student.fullName.apply(student1, arr));
+// ouptut John Doe,Oslo,Norway
+
+//bind
+
+const child = {
+  firstName:"John",
+  lastName: "Doe",
+  fullName: function () {
+    return this.firstName + " " + this.lastName;
+  }
+}
+
+const child1 = {
+  firstName:"Hege",
+  lastName: "Nilsen",
+}
+
+console.log(child.fullName.bind(child1)());
+ 
+//output Hege Nilsen
+
+
+const Student = {
+    age : 20,
+    printage : function(){
+        return this.age;
+    }
+}
+
+const student3 = {
+    age : 30
+}
+
+console.log(Student.printage.bind(student3)());
+//output 30
+
+
+
+// currying
+//bind
+let multiply = function(x,y){
+    console.log(x*y);
+}
+//m1
+let multiplyByTwo = multiply.bind(this,2,3);
+multiplyByTwo(5);
+//m2
+let multiplyByTwo1 = multiply.bind(this,2);
+multiplyByTwo1(5);
+
+// closures
+
+let devide = function(x) {
+    return function(y){
+        console.log(x/y);
+    }
+}
+
+let devidebytwo = devide(10);
+devidebytwo(2);
+
+
+         </script>
+        
+    </body>
+</html>
